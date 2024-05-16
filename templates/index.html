@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Votre Application</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('https://www.lopinion.ma/photo/art/grande/67316171-47634593.jpg?v=1663075038');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        
+
+        .buttons {
+            margin-top: 20px;
+            position: absolute;
+            top: 20px;
+            left: 1250px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #bae3ba;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons a:hover {
+            background-color: #71e071;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #bae3ba;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-left {
+            flex: 1;
+        }
+
+        .footer-right {
+            flex: 2;
+            text-align: left; /* Align text to the left */
+        }
+
+        .footer-right p {
+            margin: 5px 0;
+        }
+
+        .footer-right a {
+            color: #bae3ba;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            width: 2px;
+            height: 40px;
+            background-color: #bae3ba;
+            margin: 0 500px; /* Added margin for better spacing */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="buttons">
+            <a href="{{ url_for('login_admin') }}" style="color:black">Admin</a>
+            <a href="{{ url_for('login_student') }}" style="color:black">Etudiant</a>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-left" style="font-size: x-large;">
+            <p>FACULTÉ DES SCIENCES SEMLALIA</p>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-right">
+            <p>CONTACT</p>
+            <p>Bd. Prince My Abdellah, B.P. 2390, 40000 Marrakech</p>
+            <p>Tél : (+212) 5 24 43 46 49</p>
+            <p>Fax : (+212) 5 24 43 67 69</p>
+            <p>Email : <a href="mailto:fssm@uca.ma">fssm@uca.ma</a></p>
+        </div>
+    </footer>
+</body>
+</html>

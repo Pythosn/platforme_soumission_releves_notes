@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="templates/assets/css/style.css">
+    <style>
+        /* =========== Google Fonts ============ */
+        @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+        /* =============== Globals ============== */
+        * {
+            font-family: "Ubuntu", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #bae3ba;
+            --white: #fff;
+            --gray: #f5f5f5;
+            --black1: #222;
+            --black2: #999;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* =============== Navigation ================ */
+        .navigation {
+            position: fixed;
+            width: 300px;
+            height: 100%;
+            background: var(--blue);
+            border-left: 10px solid var(--blue);
+            transition: 0.5s;
+            overflow: hidden;
+        }
+
+        .navigation.active {
+            width: 80px;
+        }
+
+        .navigation ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .navigation ul li {
+            position: relative;
+            width: 100%;
+            list-style: none;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+        }
+
+        .navigation ul li:hover,
+        .navigation ul li.hovered {
+            background-color: var(--white);
+        }
+
+        .navigation ul li:nth-child(1) {
+            margin-bottom: 40px;
+            pointer-events: none;
+        }
+
+        .navigation ul li a {
+            position: relative;
+            display: block;
+            width: 100%;
+            display: flex;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .navigation ul li:hover a,
+        .navigation ul li.hovered a {
+            color: var(--blue);
+        }
+
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            min-width: 60px;
+            height: 60px;
+            line-height: 75px;
+            text-align: center;
+        }
+
+        .navigation ul li a .icon ion-icon {
+            font-size: 1.75rem;
+        }
+
+        .navigation ul li a .title {
+            position: relative;
+            display: block;
+            padding: 0 10px;
+            height: 60px;
+            line-height: 60px;
+            text-align: start;
+            white-space: nowrap;
+        }
+        /* =============== Help Section ================ */
+.help-section {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.help-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.help-section p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.help-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.help-section ul li {
+  margin-bottom: 10px;
+}
+
+.help-section ul li a {
+  color: #bae3ba;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.help-section ul li a:hover {
+  color: #69df69;
+}
+
+/* =============== Subsections ================ */
+.faq-section,
+.contact-section,
+.troubleshooting-section,
+.documentation-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: none; /* Hide by default */
+}
+
+.faq-section h3,
+.contact-section h3,
+.troubleshooting-section h3,
+.documentation-section h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.faq-section ul,
+.contact-section ul,
+.troubleshooting-section ul,
+.documentation-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.faq-section ul li,
+.contact-section ul li,
+.troubleshooting-section ul li,
+.documentation-section ul li {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.faq-section ul li strong {
+  font-weight: bold;
+}
+
+/* Show/hide the subsections */
+.help-section ul li a.active {
+  font-weight: bold;
+}
+
+
+        /* --------- curve outside ---------- */
+        .navigation ul li:hover a::before,
+        .navigation ul li.hovered a::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -50px;
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            border-radius: 50%;
+            box-shadow: 35px 35px 0 10px var(--white);
+            pointer-events: none;
+        }
+
+        .navigation ul li:hover a::after,
+        .navigation ul li.hovered a::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: -50px;
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            border-radius: 50%;
+            box-shadow: 35px -35px 0 10px var(--white);
+            pointer-events: none;
+        }
+
+        /* ===================== Main ===================== */
+        .main {
+            position: absolute;
+            width: calc(100% - 300px);
+            left: 300px;
+            min-height: 100vh;
+            background: var(--white);
+            transition: 0.5s;
+        }
+
+        .main.active {
+            width: calc(100% - 80px);
+            left: 80px;
+        }
+
+        .topbar {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+        }
+
+        .search {
+            position: relative;
+            width: 400px;
+            margin: 0 10px;
+        }
+
+        .search label {
+            position: relative;
+            width: 100%;
+        }
+
+        .search label input {
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            padding: 5px 20px;
+            padding-left: 35px;
+            font-size: 18px;
+            outline: none;
+            border: 1px solid var(--black2);
+        }
+
+        .search label ion-icon {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 1.2rem;
+        }
+
+        .user {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .user img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ======================= Cards ====================== */
+        .cardBox {
+            position: relative;
+            width: 100%;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 30px;
+        }
+
+        .cardBox .card {
+            position: relative;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .cardBox .card .numbers {
+            position: relative;
+            font-weight: 500;
+            font-size: 2.5rem;
+            color: var(--blue);
+        }
+
+        .cardBox .card .cardName {
+            color: var(--black2);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .cardBox .card .iconBx {
+            font-size: 3.5rem;
+            color: var(--black2);
+        }
+
+        .cardBox .card:hover {
+            background: var(--blue);
+        }
+
+        .cardBox .card:hover .numbers,
+        .cardBox .card:hover .cardName,
+        .cardBox .card:hover .iconBx {
+            color: var(--white);
+        }
+
+        /* ================== Order Details List ============== */
+
+        /* ====================== Responsive Design ========================== */
+        @media (max-width: 991px) {
+            .navigation {
+                left: -300px;
+            }
+
+            .navigation.active {
+                width: 300px;
+                left: 0;
+            }
+
+            .main {
+                width: 100%;
+                left: 0;
+            }
+
+            .main.active {
+                left: 300px;
+            }
+
+            .cardBox {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .recentOrders {
+                overflow-x: auto;
+            }
+
+            .status.inProgress {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cardBox {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .cardHeader h2 {
+                font-size: 20px;
+            }
+
+            .user {
+                min-width: 40px;
+            }
+
+            .navigation {
+                width: 100%;
+                left: -100%;
+                z-index: 1000;
+            }
+
+            .navigation.active {
+                width: 100%;
+                left: 0;
+            }
+
+            .toggle {
+                z-index: 10001;
+            }
+
+            .main.active .toggle {
+                color: #fff;
+                position: fixed;
+                right: 0;
+                left: initial;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="title">Gestion des archives</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin') }}">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('list_students_html') }}">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Students</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                        <span class="title">Demmandes</span>
+                    </a>
+                </li>
+
+                <!-- Help Section -->
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="help-outline"></ion-icon>
+                        </span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{{ url_for('settings') }}">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search here">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <div class="user">
+                    <img src="assets/imgs/customer01.jpg" alt="">
+                </div>
+            </div>
+          
+            <!-- ================== Help Section =============== -->
+            <div class="help-section">
+                <h2>Help</h2>
+                <p>Welcome to the help section. Here, you can find answers to common questions and get assistance with using our platform.</p>
+                <ul>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#documentation">Documentation</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== FAQs ========== -->
+            <div id="faq" class="faq-section">
+                <h3>FAQs</h3>
+                <p>Here are some frequently asked questions:</p>
+                <ul>
+                    <li><strong>Question 1:</strong> What is Lorem Ipsum?</li>
+                    <li><strong>Question 2:</strong> How do I reset my password?</li>
+                    <li><strong>Question 3:</strong> How can I update my profile?</li>
+                    <!-- Add more FAQs as needed -->
+                </ul>
+            </div>
+
+            <!-- ========== Contact Us ========== -->
+            <div id="contact" class="contact-section">
+                <h3>Contact Us</h3>
+                <p>If you have any questions or need further assistance, please feel free to contact us:</p>
+                <ul>
+                    <li>Email: support@example.com</li>
+                    <li>Phone: +1234567890</li>
+                </ul>
+            </div>
+
+            <!-- ========== Troubleshooting ========== -->
+            <div id="troubleshooting" class="troubleshooting-section">
+                <h3>Troubleshooting</h3>
+                <p>If you encounter any issues while using our platform, try the following troubleshooting steps:</p>
+                <ul>
+                    <li>Check your internet connection.</li>
+                    <li>Clear your browser's cache and cookies.</li>
+                    <li>Make sure you are using a supported browser.</li>
+                    <!-- Add more troubleshooting tips as needed -->
+                </ul>
+            </div>
+
+            <!-- ========== Documentation ========== -->
+            <div id="documentation" class="documentation-section">
+                <h3>Documentation</h3>
+                <p>For more detailed information about using our platform, please refer to our documentation:</p>
+                <ul>
+                    <li><a href="https://example.com/documentation" target="_blank">Read the Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script>
+        // add hovered class to selected list item
+        let list = document.querySelectorAll(".navigation li");
+
+        function activeLink() {
+            list.forEach((item) => {
+                item.classList.remove("hovered");
+            });
+            this.classList.add("hovered");
+        }
+
+        list.forEach((item) => item.addEventListener("mouseover", activeLink));
+
+        // Menu Toggle
+        let toggle = document.querySelector(".toggle");
+        let navigation = document.querySelector(".navigation");
+        let main = document.querySelector(".main");
+
+        toggle.onclick = function () {
+            navigation.classList.toggle("active");
+            main.classList.toggle("active");
+        };
+    </script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
